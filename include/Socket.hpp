@@ -1,6 +1,6 @@
 /*
    Title: Socket.hpp
-   Author: Cryptogenic (Specter)
+   Author: Specter
    Purpose: Contains function prototypes and required definitions for the Socket
             class.
 */
@@ -8,12 +8,11 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
-#include <string>
-#include <iostream>
-#include <cstring>
-#include <stdio.h>
-#include <strings.h>
-#include <stdlib.h>
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#include <winsock2.h>
+#include <windows.h>
+#else
 #include <netdb.h>
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -21,12 +20,19 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <errno.h>
+#endif
 
-// bzero() is depricated, so replace with memset()
+#include <string>
+#include <iostream>
+#include <cstring>
+#include <stdio.h>
+#include <strings.h>
+#include <stdlib.h>
+
+/* For maximum portability, memset is preferred */
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
-// The maximum number of bytes we will accept
-const int MAX_RECEIVE_SIZE = 32768;
+const int MAX_RECEIVE_SIZE = 32768; // The maximum number of bytes we will accept
 
 /*
   Class: Socket

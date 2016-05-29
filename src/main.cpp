@@ -3,13 +3,13 @@
 
 /*
    Title: main.cpp
-   Author: Cryptogenic (Specter)
+   Author: Specter
    Purpose: Main Example of basic socket usage.
    More Info: This file is a basic example of how to use the Socket class. It simply
               attempts to connect and prints if a connection could be established.
               If a connection could be established, the program returns 0, otherwise,
               it returns -1.
-              
+
    Documentation: All documentation can be found in /docs
 */
 

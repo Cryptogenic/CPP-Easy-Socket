@@ -1,6 +1,6 @@
 /*
    Title: Socket.cpp
-   Author: Cryptogenic (Specter)
+   Author: Specter
    Purpose: Contains implementation for Socket class. Documentation for class
             can be found in the header file (Socket.cpp) or in /docs.
 */

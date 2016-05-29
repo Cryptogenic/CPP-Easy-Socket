@@ -1,11 +1,9 @@
 # C++ Easy Socket
 The “C++ Easy Socket” project was developed to make networking projects easier
 by hiding all of the messy difficult stuff. It provides a higher-level of abstraction
-without compromising portability in regards to libraries. It’s currently been built
-and coded for Linux, however Windows compatibility will come in the near future,
-as well as support for server-sided functions (eg. binding). If anyone out there
-wants to help out by implementing either of these, feel free to fork the repo, I
-may even put it in the official branch!
+without compromising portability in regards to libraries. Though it was built on
+a Linux system, Windows support has been added. Server-sided functions (eg. binding) will
+be added in the future.
 
 # Motivation
 This class was originally implemented for an IRC client I was creating in C++. After
