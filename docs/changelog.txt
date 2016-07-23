@@ -1,0 +1,12 @@
+- Version 1.1 -
+
++ Added support for Windows systems
++ Added server-sided functionality with support for multiple concurrent connections
++ Updated error handling (more information about the error is now printed to the screen)
++ "bzero" and "bcopy" are no longer used, memset, memcpy, and memmove are now used for maximum portability
++ Added "SOCKET_TYPES" enum as well as the "setSocketType" function for setting if you want to use the socket class for client-sided or server-sided connections
++ Added example makefile to compile the basic template program provided (client-sided)
++ Updated documentation for server-sided usage
++ Added additional documentation such as this changelog.txt as well as a todo.txt
+
+- Version 1.0 -
