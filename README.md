@@ -3,7 +3,8 @@ The “C++ Easy Socket” project was developed to make networking projects easi
 by hiding all of the messy difficult stuff. It provides a higher-level of abstraction
 without compromising portability in regards to libraries. Though it was built on
 a Linux system, Windows support has been added. In the recent update 1.1, server-sided
-functionality was also added.
+functionality was also added. This project is for TCP connections, and currently does not
+support UDP specifically.
 
 # Motivation
 This class was originally implemented for an IRC client I was creating in C++. After
@@ -13,8 +14,7 @@ use to others. It’s by no means perfect, but improvements will be made over
 time.
 
 # Latest Version
-The latest version for this project is 1.1. Windows support as well as support for
-server-sided functionality has been added. For more information on the 1.1 update,
+The latest version for this project is 1.2. For more information on the 1.1 update,
 check the changelog.txt in /docs.
 
 # Requirements

@@ -87,7 +87,7 @@ public:
   void writeSocket(std::string buffer, bool debugOutput = false);
   std::string readSocket(bool debugOutput = false);
 
-  void handleClient(int sock);
+  void handleClient(int sock, std::string ip);
   void listenSocket();
 
 private:

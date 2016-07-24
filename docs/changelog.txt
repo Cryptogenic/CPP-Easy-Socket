@@ -1,3 +1,10 @@
+- Version 1.2 -
+
++ Additional information is now printed to the console for server-sided use, such as when clients connect/disconnect and their IP Address
++ Fixed minor documentation issues
++ Cleaned up some functions such as Socket::handleClient() and Socket::setSocketType()
++ Added failsafes so server-sided functions cannot be called if socket type is set to TYPE_CLIENT or vice-versa
+
 - Version 1.1 -
 
 + Added support for Windows systems
@@ -8,5 +15,3 @@
 + Added example makefile to compile the basic template program provided (client-sided)
 + Updated documentation for server-sided usage
 + Added additional documentation such as this changelog.txt as well as a todo.txt
-
-- Version 1.0 -

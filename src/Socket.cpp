@@ -21,11 +21,12 @@ using namespace std;
 
    Arguments:
     int sock - The socket reference
+    std::string ip - The IP address of the client being handled
 
     Returns: Nothing (void)
 */
 
-void Socket::handleClient(int sock)
+void Socket::handleClient(int sock, string ip)
 {
   // Holds status code for read/write operation and stores received information
   int clientConnStatus;
@@ -44,7 +45,6 @@ void Socket::handleClient(int sock)
     // We have to strip the EOL that may be sent
     // Credit: Luke < http://stackoverflow.com/users/16434/luke >
     recvPacket.erase(remove(recvPacket.begin(), recvPacket.end(), '\n'), recvPacket.end());
-    // End Credit
 
     if(clientConnStatus < 0)
     {
@@ -52,10 +52,8 @@ void Socket::handleClient(int sock)
       return;
     }
 
-    // For some reason, bugs will occur if a string literal and the string "recvPacket"
-    // are in the same cout, so they are seperated.
-    cout << "[RECV]\t\t";
-    cout << recvPacket << endl;
+    // Buffer must be flushed or we'll get bugs
+    cout << flush << "[RECV]\t\t" << recvPacket << endl;
 
     // If we received a "PING" packet, respond with "PONG" to show the server <-> client
     // connection is OK
@@ -71,6 +69,9 @@ void Socket::handleClient(int sock)
       return;
     }
   } while(clientConnStatus != 0);
+
+  // If we've reached this point, clientConnStatus == 0, the client has disconnected
+  cout << "[INFO]\t\tClient from " << ip << " has disconnected." << endl;
 }
 
 /*
@@ -113,10 +114,24 @@ Socket::~Socket()
 
 void Socket::setSocketType(int type)
 {
-  clientSock = true;
+  switch(type)
+  {
+    case TYPE_CLIENT:
+    {
+      clientSock = true;
+    } break;
 
-  if(type == TYPE_SERVER)
-    clientSock = false;
+    case TYPE_SERVER:
+    {
+      clientSock = false;
+    } break;
+
+    default:
+    {
+      throwWarning("Socket type given is not a real type, defaulting to TYPE_CLIENT!");
+      clientSock = true;
+    } break;
+  }
 }
 
 /*
@@ -194,8 +209,6 @@ void Socket::writeSocket(string buffer, bool debugOutput)
   memset(sendBuffer, '\0', (buffer.length() + 1)); // Zero out all bytes for buffer
   memcpy(sendBuffer, buffer.c_str(), buffer.length());   // Copy given buffer into send buffer
 
-  cout << sendBuffer << endl;
-
   n = write(sockfd, sendBuffer, strlen(buffer.c_str()));
 
   if(debugOutput)
@@ -218,6 +231,13 @@ void Socket::writeSocket(string buffer, bool debugOutput)
 
 string Socket::readSocket(bool debugOutput)
 {
+  // This is a client-sided function, listenSocket() should be used for servers
+  if(!clientSock)
+  {
+    throwError("Socket::readSocket() is a client-sided function, for servers Socket::listenSocket() should be used!", "None");
+    return "[ERR]";
+  }
+
   memset(buffer, '\0', MAX_RECEIVE_SIZE); // Zero out all bytes for buffer
 
   n = read(sockfd, buffer, MAX_RECEIVE_SIZE - 1); // Subtract 1 to ensure room for null terminator
@@ -247,6 +267,13 @@ string Socket::readSocket(bool debugOutput)
 
 void Socket::listenSocket()
 {
+  // This is a server-sided function, readSocket() should be used for clients
+  if(clientSock)
+  {
+    throwError("Socket::listenSocket() is a server-sided function, for clients Socket::readSocket() should be used!", "None");
+    return;
+  }
+
   if(bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
   {
     throwError("The socket could not be bound to port!", strerror(errno));
@@ -273,15 +300,18 @@ void Socket::listenSocket()
 
     if(pid < 0)
     {
-      throwError("We failed to create a child process to handle client", strerror(errno));
+      throwError("We failed to create a child process to handle client!", strerror(errno));
       break; // Break out of the loop and terminate program
     }
 
     if(pid == 0)
     {
-      // Handle client
+      // We have a new client, handle
       close(sockfd);
-      handleClient(newsockfd);
+
+      cout << "[INFO]\t\tClient has connected from " << inet_ntoa(cli_addr.sin_addr) << "." << endl;
+
+      handleClient(newsockfd, string(inet_ntoa(cli_addr.sin_addr)));
       break; // Break out of the loop and terminate program
     }
     else
