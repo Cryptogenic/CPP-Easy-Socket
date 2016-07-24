@@ -14,7 +14,7 @@ use to others. It’s by no means perfect, but improvements will be made over
 time.
 
 # Latest Version
-The latest version for this project is 1.2. For more information on the 1.1 update,
+The latest version for this project is 1.2. For more information on the 1.2 update,
 check the changelog.txt in /docs.
 
 # Requirements
