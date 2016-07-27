@@ -3,10 +3,10 @@
 #include "../include/Structures.hpp"
 
 /*
-   Title: main.cpp
+   Title: example01-client.cpp
    Author: Specter
 
-   Purpose: Main Example of basic socket usage.
+   Purpose: Main Example of basic socket usage for client-sided connections.
 
    More Info: This file is a basic example of how to use the Socket class. It simply
               attempts to connect and prints if a connection could be established.
@@ -22,13 +22,13 @@ int main()
 
   /*
       std::string host - Hostname or IP of the server
-      std::string port - The port of specified host to connect to (or bind to)
+      std::string port - The port of specified host to connect to
   */
 
   std::string host = "0.0.0.0";
   std::string port = "13337";
 
-  //First we must specify the type of socket we are running, either a TYPE_CLIENT or TYPE_SERVER.
+  // First we must specify the type of socket we are running, either a TYPE_CLIENT or TYPE_SERVER.
   sock.setSocketType(TYPE_CLIENT);
 
   // Initiate the socket with specified host and port

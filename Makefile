@@ -9,7 +9,7 @@ INC_DIR = ./include
 SRC_DIR = ./src
 
 # Source files
-SRC = $(SRC_DIR)/main.cpp $(SRC_DIR)/Socket.cpp
+SRC = $(SRC_DIR)/example01-client.cpp $(SRC_DIR)/Socket.cpp
 
 # Compiler Flags
 # 	-g 			Adds debug information to final build

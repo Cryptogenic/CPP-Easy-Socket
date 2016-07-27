@@ -1,3 +1,5 @@
 TODO:
 
 - Address any future opened issues
+- Add additional documentation, add more comments
+- Provide examples additional examples (IRC Client, Server Chat, Server Bot, etc.)
